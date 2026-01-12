@@ -1,0 +1,570 @@
+You are the best and most aggressive player in DareFightingICE which is a 2D fighting video game.
+Your goal is to beat the other opponent. The player who has 0 hp will be considered as lost. You respond with a bullet point list of moves.
+Below are information of the game:
+- screen width: 960
+- screen height: 640
+- initial HP: 400
+- inital energy: 0
+- total frame number: 3600
+Below is the description of the current game state including hp, energy, position, speed, current action, current state, projectiles of you and the opponent, remaining_frames is the number of frames that the character needs to resume to its normal status:
+{
+    "self": {
+        "hp": 332,
+        "energy": 10,
+        "position": {
+            "left": 41,
+            "right": 81,
+            "top": 435,
+            "bottom": 640
+        },
+        "speed": {
+            "x": 0,
+            "y": 0
+        },
+        "action": "STAND_B",
+        "state": "STAND",
+        "remaining frames": 15,
+        "projectiles": []
+    },
+    "opponent": {
+        "hp": 286,
+        "energy": 140,
+        "position": {
+            "left": 0,
+            "right": 40,
+            "top": 423,
+            "bottom": 628
+        },
+        "speed": {
+            "x": -5,
+            "y": -2
+        },
+        "action": "STAND_RECOV",
+        "state": "STAND",
+        "remaining frames": 25,
+        "projectiles": [
+            {
+                "damage": 5,
+                "left": 133,
+                "right": 178,
+                "bottom": 530,
+                "top": 510,
+                "speed": {
+                    "x": 3,
+                    "y": 0
+                }
+            }
+        ]
+    },
+    "frame num": 1492
+}
+Below is a list of possible actions including the information of Action, Description, Energy, GuardAddEnergy, HitAddEnergy, GuardDamage and HitDamage in DareFightingICE:
+[
+    {
+        "Action": "NEUTRAL",
+        "Description": "NEUTRAL",
+        "attack.GiveEnergy": 0,
+        "attack.GuardAddEnergy": 0,
+        "attack.HitAddEnergy": 0,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 0
+    },
+    {
+        "Action": "STAND",
+        "Description": "STAND",
+        "attack.GiveEnergy": 0,
+        "attack.GuardAddEnergy": 0,
+        "attack.HitAddEnergy": 0,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 0
+    },
+    {
+        "Action": "FORWARD_WALK",
+        "Description": "A forward walk",
+        "attack.GiveEnergy": 0,
+        "attack.GuardAddEnergy": 0,
+        "attack.HitAddEnergy": 0,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 0
+    },
+    {
+        "Action": "DASH",
+        "Description": "A dash",
+        "attack.GiveEnergy": 0,
+        "attack.GuardAddEnergy": 0,
+        "attack.HitAddEnergy": 0,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 0
+    },
+    {
+        "Action": "BACK_STEP",
+        "Description": "A back step",
+        "attack.GiveEnergy": 0,
+        "attack.GuardAddEnergy": 0,
+        "attack.HitAddEnergy": 0,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 0
+    },
+    {
+        "Action": "CROUCH",
+        "Description": "A crouch",
+        "attack.GiveEnergy": 0,
+        "attack.GuardAddEnergy": 0,
+        "attack.HitAddEnergy": 0,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 0
+    },
+    {
+        "Action": "JUMP",
+        "Description": "A jump",
+        "attack.GiveEnergy": 0,
+        "attack.GuardAddEnergy": 0,
+        "attack.HitAddEnergy": 0,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 0
+    },
+    {
+        "Action": "FOR_JUMP",
+        "Description": "A forward jump",
+        "attack.GiveEnergy": 0,
+        "attack.GuardAddEnergy": 0,
+        "attack.HitAddEnergy": 0,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 0
+    },
+    {
+        "Action": "BACK_JUMP",
+        "Description": "A back jump",
+        "attack.GiveEnergy": 0,
+        "attack.GuardAddEnergy": 0,
+        "attack.HitAddEnergy": 0,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 0
+    },
+    {
+        "Action": "AIR",
+        "Description": "AIR",
+        "attack.GiveEnergy": 0,
+        "attack.GuardAddEnergy": 0,
+        "attack.HitAddEnergy": 0,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 0
+    },
+    {
+        "Action": "STAND_GUARD",
+        "Description": "Guard a middle attack",
+        "attack.GiveEnergy": 0,
+        "attack.GuardAddEnergy": 0,
+        "attack.HitAddEnergy": 0,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 0
+    },
+    {
+        "Action": "CROUCH_GUARD",
+        "Description": "Guard a lower attack",
+        "attack.GiveEnergy": 0,
+        "attack.GuardAddEnergy": 0,
+        "attack.HitAddEnergy": 0,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 0
+    },
+    {
+        "Action": "AIR_GUARD",
+        "Description": "Guard during in the air",
+        "attack.GiveEnergy": 0,
+        "attack.GuardAddEnergy": 0,
+        "attack.HitAddEnergy": 0,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 0
+    },
+    {
+        "Action": "STAND_GUARD_RECOV",
+        "Description": "STAND_GUARD_RECOV",
+        "attack.GiveEnergy": 0,
+        "attack.GuardAddEnergy": 0,
+        "attack.HitAddEnergy": 0,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 0
+    },
+    {
+        "Action": "CROUCH_GUARD_RECOV",
+        "Description": "CROUCH_GUARD_RECOV",
+        "attack.GiveEnergy": 0,
+        "attack.GuardAddEnergy": 0,
+        "attack.HitAddEnergy": 0,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 0
+    },
+    {
+        "Action": "AIR_GUARD_RECOV",
+        "Description": "AIR_GUARD_RECOV",
+        "attack.GiveEnergy": 0,
+        "attack.GuardAddEnergy": 0,
+        "attack.HitAddEnergy": 0,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 0
+    },
+    {
+        "Action": "STAND_RECOV",
+        "Description": "STAND_RECOV",
+        "attack.GiveEnergy": 0,
+        "attack.GuardAddEnergy": 0,
+        "attack.HitAddEnergy": 0,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 0
+    },
+    {
+        "Action": "CROUCH_RECOV",
+        "Description": "CROUCH_RECOV",
+        "attack.GiveEnergy": 0,
+        "attack.GuardAddEnergy": 0,
+        "attack.HitAddEnergy": 0,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 0
+    },
+    {
+        "Action": "AIR_RECOV",
+        "Description": "AIR_RECOV",
+        "attack.GiveEnergy": 0,
+        "attack.GuardAddEnergy": 0,
+        "attack.HitAddEnergy": 0,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 0
+    },
+    {
+        "Action": "CHANGE_DOWN",
+        "Description": "CHANGE_DOWN",
+        "attack.GiveEnergy": 0,
+        "attack.GuardAddEnergy": 0,
+        "attack.HitAddEnergy": 0,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 0
+    },
+    {
+        "Action": "DOWN",
+        "Description": "DOWN",
+        "attack.GiveEnergy": 0,
+        "attack.GuardAddEnergy": 0,
+        "attack.HitAddEnergy": 0,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 0
+    },
+    {
+        "Action": "RISE",
+        "Description": "RISE",
+        "attack.GiveEnergy": 0,
+        "attack.GuardAddEnergy": 0,
+        "attack.HitAddEnergy": 0,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 0
+    },
+    {
+        "Action": "LANDING",
+        "Description": "LANDING",
+        "attack.GiveEnergy": 0,
+        "attack.GuardAddEnergy": 0,
+        "attack.HitAddEnergy": 0,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 0
+    },
+    {
+        "Action": "THROW_A",
+        "Description": "A light throw",
+        "attack.GiveEnergy": 10,
+        "attack.GuardAddEnergy": 0,
+        "attack.HitAddEnergy": 2,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 10
+    },
+    {
+        "Action": "THROW_B",
+        "Description": "A hard throw",
+        "attack.GiveEnergy": 20,
+        "attack.GuardAddEnergy": 0,
+        "attack.HitAddEnergy": 5,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 20
+    },
+    {
+        "Action": "THROW_HIT",
+        "Description": "THROW_HIT",
+        "attack.GiveEnergy": 0,
+        "attack.GuardAddEnergy": 0,
+        "attack.HitAddEnergy": 0,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 0
+    },
+    {
+        "Action": "THROW_SUFFER",
+        "Description": "THROW_SUFFER",
+        "attack.GiveEnergy": 0,
+        "attack.GuardAddEnergy": 0,
+        "attack.HitAddEnergy": 0,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 0
+    },
+    {
+        "Action": "STAND_A",
+        "Description": "A light punch",
+        "attack.GiveEnergy": 5,
+        "attack.GuardAddEnergy": 1,
+        "attack.HitAddEnergy": 2,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 5
+    },
+    {
+        "Action": "STAND_B",
+        "Description": "A light kick",
+        "attack.GiveEnergy": 10,
+        "attack.GuardAddEnergy": 2,
+        "attack.HitAddEnergy": 5,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 10
+    },
+    {
+        "Action": "CROUCH_A",
+        "Description": "A lower light punch",
+        "attack.GiveEnergy": 5,
+        "attack.GuardAddEnergy": 1,
+        "attack.HitAddEnergy": 3,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 5
+    },
+    {
+        "Action": "CROUCH_B",
+        "Description": "A lower light kick",
+        "attack.GiveEnergy": 10,
+        "attack.GuardAddEnergy": 2,
+        "attack.HitAddEnergy": 5,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 10
+    },
+    {
+        "Action": "AIR_A",
+        "Description": "A light overhead punch in the air",
+        "attack.GiveEnergy": 10,
+        "attack.GuardAddEnergy": 1,
+        "attack.HitAddEnergy": 5,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 8
+    },
+    {
+        "Action": "AIR_B",
+        "Description": "A light overhead kick in the air",
+        "attack.GiveEnergy": 20,
+        "attack.GuardAddEnergy": 2,
+        "attack.HitAddEnergy": 10,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 10
+    },
+    {
+        "Action": "AIR_DA",
+        "Description": "A lower light punch in the air",
+        "attack.GiveEnergy": 10,
+        "attack.GuardAddEnergy": 2,
+        "attack.HitAddEnergy": 8,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 8
+    },
+    {
+        "Action": "AIR_DB",
+        "Description": "A lower light kick in the air",
+        "attack.GiveEnergy": 20,
+        "attack.GuardAddEnergy": 4,
+        "attack.HitAddEnergy": 10,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 10
+    },
+    {
+        "Action": "STAND_FA",
+        "Description": "A hard punch",
+        "attack.GiveEnergy": 5,
+        "attack.GuardAddEnergy": 1,
+        "attack.HitAddEnergy": 4,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 8
+    },
+    {
+        "Action": "STAND_FB",
+        "Description": "A higher hard kick",
+        "attack.GiveEnergy": 20,
+        "attack.GuardAddEnergy": 3,
+        "attack.HitAddEnergy": 10,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 12
+    },
+    {
+        "Action": "CROUCH_FA",
+        "Description": "A higher hard punch",
+        "attack.GiveEnergy": 5,
+        "attack.GuardAddEnergy": 1,
+        "attack.HitAddEnergy": 4,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 8
+    },
+    {
+        "Action": "CROUCH_FB",
+        "Description": "A lower hard kick",
+        "attack.GiveEnergy": 10,
+        "attack.GuardAddEnergy": 2,
+        "attack.HitAddEnergy": 10,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 12
+    },
+    {
+        "Action": "AIR_FA",
+        "Description": "A medium overhead punch in the air",
+        "attack.GiveEnergy": 10,
+        "attack.GuardAddEnergy": 2,
+        "attack.HitAddEnergy": 5,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 10
+    },
+    {
+        "Action": "AIR_FB",
+        "Description": "A medium overhead kick in the air",
+        "attack.GiveEnergy": 20,
+        "attack.GuardAddEnergy": 4,
+        "attack.HitAddEnergy": 10,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 12
+    },
+    {
+        "Action": "AIR_UA",
+        "Description": "A higher hard punch in the air",
+        "attack.GiveEnergy": 10,
+        "attack.GuardAddEnergy": 2,
+        "attack.HitAddEnergy": 8,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 10
+    },
+    {
+        "Action": "AIR_UB",
+        "Description": "A higher hard kick in the air",
+        "attack.GiveEnergy": 20,
+        "attack.GuardAddEnergy": 4,
+        "attack.HitAddEnergy": 10,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 20
+    },
+    {
+        "Action": "STAND_D_DF_FA",
+        "Description": "Throws a light fire ball",
+        "attack.GiveEnergy": 5,
+        "attack.GuardAddEnergy": 5,
+        "attack.HitAddEnergy": 3,
+        "attack.GuardDamage": 2,
+        "attack.HitDamage": 5
+    },
+    {
+        "Action": "STAND_D_DF_FB",
+        "Description": "Throws a heavy fire ball",
+        "attack.GiveEnergy": 20,
+        "attack.GuardAddEnergy": 6,
+        "attack.HitAddEnergy": 10,
+        "attack.GuardDamage": 8,
+        "attack.HitDamage": 20
+    },
+    {
+        "Action": "STAND_F_D_DFA",
+        "Description": "A medium uppercut",
+        "attack.GiveEnergy": 10,
+        "attack.GuardAddEnergy": 2,
+        "attack.HitAddEnergy": 5,
+        "attack.GuardDamage": 2,
+        "attack.HitDamage": 10
+    },
+    {
+        "Action": "STAND_F_D_DFB",
+        "Description": "A hard uppercut",
+        "attack.GiveEnergy": 30,
+        "attack.GuardAddEnergy": 6,
+        "attack.HitAddEnergy": 20,
+        "attack.GuardDamage": 8,
+        "attack.HitDamage": 40
+    },
+    {
+        "Action": "STAND_D_DB_BA",
+        "Description": "A jump and strike",
+        "attack.GiveEnergy": 10,
+        "attack.GuardAddEnergy": 2,
+        "attack.HitAddEnergy": 5,
+        "attack.GuardDamage": 2,
+        "attack.HitDamage": 10
+    },
+    {
+        "Action": "STAND_D_DB_BB",
+        "Description": "A slide kick",
+        "attack.GiveEnergy": 30,
+        "attack.GuardAddEnergy": 6,
+        "attack.HitAddEnergy": 15,
+        "attack.GuardDamage": 4,
+        "attack.HitDamage": 25
+    },
+    {
+        "Action": "AIR_D_DF_FA",
+        "Description": "Throws a light fire ball in the air",
+        "attack.GiveEnergy": 5,
+        "attack.GuardAddEnergy": 10,
+        "attack.HitAddEnergy": 5,
+        "attack.GuardDamage": 0,
+        "attack.HitDamage": 10
+    },
+    {
+        "Action": "AIR_D_DF_FB",
+        "Description": "Throws a heavy fire ball in the air",
+        "attack.GiveEnergy": 30,
+        "attack.GuardAddEnergy": 6,
+        "attack.HitAddEnergy": 15,
+        "attack.GuardDamage": 6,
+        "attack.HitDamage": 30
+    },
+    {
+        "Action": "AIR_F_D_DFA",
+        "Description": "A light punch with forward movement in the air",
+        "attack.GiveEnergy": 10,
+        "attack.GuardAddEnergy": 2,
+        "attack.HitAddEnergy": 5,
+        "attack.GuardDamage": 2,
+        "attack.HitDamage": 10
+    },
+    {
+        "Action": "AIR_F_D_DFB",
+        "Description": "A light kick with forward movement in the air",
+        "attack.GiveEnergy": 30,
+        "attack.GuardAddEnergy": 6,
+        "attack.HitAddEnergy": 15,
+        "attack.GuardDamage": 4,
+        "attack.HitDamage": 20
+    },
+    {
+        "Action": "AIR_D_DB_BA",
+        "Description": "A hard punch with forward movement in the air",
+        "attack.GiveEnergy": 10,
+        "attack.GuardAddEnergy": 2,
+        "attack.HitAddEnergy": 5,
+        "attack.GuardDamage": 2,
+        "attack.HitDamage": 15
+    },
+    {
+        "Action": "AIR_D_DB_BB",
+        "Description": "A hard kick with forward movement in the air",
+        "attack.GiveEnergy": 30,
+        "attack.GuardAddEnergy": 10,
+        "attack.HitAddEnergy": 15,
+        "attack.GuardDamage": 8,
+        "attack.HitDamage": 40
+    },
+    {
+        "Action": "STAND_D_DF_FC",
+        "Description": "Throws a special fire ball",
+        "attack.GiveEnergy": 60,
+        "attack.GuardAddEnergy": 30,
+        "attack.HitAddEnergy": 30,
+        "attack.GuardDamage": 30,
+        "attack.HitDamage": 120
+    }
+]
+
+----
+Reply with only one move. The format should be: `- <name of the move>` separated by a new line.
