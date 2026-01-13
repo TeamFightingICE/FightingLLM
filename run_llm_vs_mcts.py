@@ -18,29 +18,29 @@ load_dotenv()
 app = typer.Typer(pretty_exceptions_enable=False)
 
 def cleanup_on_exit():
-    """程序退出时的清理函数"""
-    logger.info("程序退出，正在清理所有模型资源...")
+    """Cleanup function on program exit"""
+    logger.info("Program exiting, cleaning up all model resources...")
     model_manager.cleanup_all_models()
-
-# 注册退出清理函数
+    
+# Register exit cleanup function
 atexit.register(cleanup_on_exit)
 
 def clear_gpu_memory():
-    """清理GPU内存碎片"""
+    """Clean up GPU memory fragmentation"""
     if torch.cuda.is_available():
         torch.cuda.empty_cache()
         torch.cuda.synchronize()
     gc.collect()
 
 def check_gpu_memory():
-    """检查GPU内存状态"""
+    """Check GPU memory status"""
     if torch.cuda.is_available():
         total_memory = torch.cuda.get_device_properties(0).total_memory / (1024**3)
         allocated_memory = torch.cuda.memory_allocated(0) / (1024**3)
         cached_memory = torch.cuda.memory_reserved(0) / (1024**3)
         free_memory = total_memory - cached_memory
-        
-        logger.info(f"GPU内存: 总计{total_memory:.2f}GB, 已分配{allocated_memory:.2f}GB, 可用{free_memory:.2f}GB")
+
+        logger.info(f"GPU memory: Total {total_memory:.2f}GB, Allocated {allocated_memory:.2f}GB, Free {free_memory:.2f}GB")
         return free_memory
     return 0
 
@@ -55,13 +55,13 @@ async def start_process(
     persona: str = "",
     p2="MctsAi23i",
 ):
-    logger.info(f"开始运行 {game_num} 场游戏")
-    logger.info(f"模型: {llm_model}")
+    logger.info(f"Starting {game_num} games")
+    logger.info(f"Model: {llm_model}")
     
-    # 检查初始GPU内存
+    # Check initial GPU memory.
     check_gpu_memory()
     
-    # 生成agent名称
+    # Generate agent name
     if persona == "" or persona is None:
         name = f"LLM_{llm_model}_{LLMAgent.get_agent_name(prompt_generator)}_{shots}_shots"
     else:
@@ -69,8 +69,8 @@ async def start_process(
     name = name.replace("/", "_").replace(":", "-")
     logger.info(f"Agent name: {name}")
     
-    # 只创建一次agent - 模型会被全局管理器复用
-    logger.info("正在初始化Agent（模型只会加载一次）...")
+    # Create the agent only once — the model will be reused by the global manager.
+    logger.info("Initializing the Agent (the model will be loaded only once).")
     try:
         agent1 = LLMAgent(
             llm_model=llm_model,
@@ -78,67 +78,67 @@ async def start_process(
             prompt_generator=prompt_generator,
             persona=persona,
         )
-        logger.info("Agent初始化完成")
-        logger.info(f"当前已加载模型数量: {model_manager.get_model_count()}")
+        logger.info("Agent initialization complete")
+        logger.info(f"Current model count: {model_manager.get_model_count()}")
         
     except torch.OutOfMemoryError as e:
-        logger.error(f"GPU内存不足: {e}")
-        logger.error("请尝试:")
-        logger.error("1. 使用更小的模型")
-        logger.error("2. 降低gpu_memory_utilization参数") 
-        logger.error("3. 检查是否有其他进程占用GPU")
+        logger.error(f"GPU memory insufficient: {e}")
+        logger.error("Please try:")
+        logger.error("1. Use a smaller model.")
+        logger.error("2. Reduce gpu_memory_utilization parameter") 
+        logger.error("3. Check if other processes are using GPU")
         raise
     except Exception as e:
-        logger.error(f"Agent初始化失败: {e}")
-        raise
+        logger.error(f"Agent initialization failed: {e}")
+        raise e
     
-    # 游戏循环
+    # Game loop
     for i in range(game_num):
         logger.info(f"=" * 50)
-        logger.info(f"开始第 {i+1}/{game_num} 场游戏")
+        logger.info(f"Starting game {i+1}/{game_num}")
         
         if i > 0:
-            logger.info("复用已加载的模型和Agent")
-            # 游戏间清理内存碎片
+            logger.info("Reusing already loaded model and Agent")
+            # Clean up memory fragmentation between matches
             clear_gpu_memory()
         
         gateway = None
         try:
-            # 每场游戏创建新的gateway
+            # Create a new gateway for each game.
             gateway = Gateway(host, port)
             
-            # 注册AI（复用同一个agent实例，其中的模型也是复用的）
+            # Register AI (reuse the same agent instance, with the model also reused).
             gateway.register_ai(name, agent1)
             
-            logger.info(f"开始运行第 {i+1} 场游戏...")
+            logger.info(f"Starting game {i+1}...")
             
-            # 运行游戏
+            # Run the game
             await gateway.run_game(characters, [name, p2], 1)
             
-            logger.info(f"第 {i+1} 场游戏完成")
+            logger.info(f"Game {i+1} completed.")
             
         except Exception as e:
-            logger.error(f"第 {i+1} 场游戏出错: {e}")
+            logger.error(f"Error in game {i+1}: {e}")
             
         finally:
-            # 确保每场游戏后都关闭gateway
+            # Ensure the gateway is closed after each game
             if gateway:
                 try:
                     await gateway.close()
-                    logger.debug(f"第 {i+1} 场游戏的gateway已关闭")
+                    logger.debug(f"Gateway for game {i+1} closed.")
                 except Exception as e:
-                    logger.warning(f"关闭gateway时出错: {e}")
+                    logger.warning(f"Error closing gateway: {e}")
         
-        # 每场游戏后检查内存状态
+        # Check memory status after each game
         if i < game_num - 1:
             free_memory = check_gpu_memory()
-            if free_memory < 1.0:  # 如果可用内存少于1GB
-                logger.warning("GPU内存不足，正在清理...")
+            if free_memory < 1.0: 
+                logger.warning("Insufficient GPU memory; cleaning up...")
                 clear_gpu_memory()
     
     logger.info(f"=" * 50)
-    logger.info(f"所有 {game_num} 场游戏已完成！")
-    logger.info(f"模型统计: 共加载 {model_manager.get_model_count()} 个模型实例")
+    logger.info(f"All {game_num} games completed!")
+    logger.info(f"Model statistics: {model_manager.get_model_count()} model instances loaded")
 
 @app.command()
 def main(
@@ -170,7 +170,6 @@ def main(
         Optional[str], typer.Option("--p2", help="The opponent")
     ] = "MctsAi23i",
 ):
-    # 设置环境变量优化内存管理
     os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
     
     try:
@@ -188,14 +187,13 @@ def main(
             )
         )
     except KeyboardInterrupt:
-        logger.info("收到中断信号，正在清理资源...")
+        logger.info("Received interrupt signal, cleaning up resources...")
     except Exception as e:
-        logger.error(f"程序执行失败: {e}")
+        logger.error(f"Program execution failed: {e}")
         import traceback
         logger.error(traceback.format_exc())
         raise
     finally:
-        # 程序结束时清理所有资源
         cleanup_on_exit()
 
 if __name__ == "__main__":

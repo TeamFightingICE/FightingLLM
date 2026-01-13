@@ -17,7 +17,7 @@ Note: Please choose the appropriate cuda version for your system
 2. Start DareFightingICE
 3. Run the script 
 ```ssh 
-python run_llm_vs_mcts.py --llm_model local:path_to_local_model --prompt_type 1
+python run_llm_vs_mcts.py --llm_model local:path_to_local_model
 ```
 
 ### Finetune (TBA)

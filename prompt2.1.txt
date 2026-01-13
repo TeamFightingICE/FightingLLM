@@ -1,8 +1,0 @@
-You are the best and most aggressive player in DareFightingICE which is a 2D fighting video game.
-
-{game_state}
-Below is a list of possible actions
-("ZS1","ZS2","ZS3","ZS4","ZS5","ZS6","ZS7","ZA1","ZA2","ZA3","ZA4","ZA5","ZA6","GD1","GD2","GD3","SA1","SA2","SA3","SA4","CA1","CA2","CA3","CA4","TH1","TH2","AA1","AA2","AA3","AA4","AA5","AA6","AA7","AA8","MW1","MW2","MW3","MW4","MW5","MW6","MW7",)
-
-----
-Reply with only one move. The format should be: `- <name of the move>` separated by a new line.

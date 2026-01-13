@@ -9,10 +9,10 @@ from loguru import logger
 
 
 def get_client(model_type: str):
-    logger.info(f"获取模型类型的客户端: '{model_type}'")
+    logger.info(f"Client for obtaining the model type: '{model_type}'")
     
     if model_type.lower() == "local":
-        logger.info("检测到本地模型，返回None作为客户端")
+        logger.info("Local model detected; return None as the client.")
         return None
         
     if "openai" in model_type:
@@ -22,8 +22,8 @@ def get_client(model_type: str):
     if "lmstudio" in model_type:
         return OpenAI(base_url="http://localhost:1234/v1", api_key="lmstudio")
     
-    # 如果没有匹配任何已知类型，提供错误日志
-    logger.error(f"未知的模型类型: '{model_type}'")
+    # If no known type matches, log an error.
+    logger.error(f"Unknown model type: '{model_type}'")
     return None
 
 def call_llm(client: OpenAI, model: str, user_prompt: str) -> str:
@@ -64,16 +64,3 @@ class LLamaLLM(LLM):
         response = call_llm(self.client, self.model_name, prompt)
         actions = get_move_from_response(response)
         return actions
-
-
-if __name__ == "__main__":
-    client = get_client()
-    system_prompt = ""
-    with open("prompts/1.txt", "r") as f:
-        system_prompt = "".join(f.readlines())
-    # print(system_prompt)
-    message = call_llm(client, "mistral-nemo:12b", system_prompt)
-
-    matches = re.findall(r"- ([\w ]+)", message)
-    moves = ["".join(match) for match in matches]
-    print(moves)
