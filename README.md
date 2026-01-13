@@ -10,6 +10,7 @@
 - perft 0.16.0
 - scikit-learn
 - loguru
+- datasets
 
 Note: Please choose the appropriate cuda version for your system
 ### How to run
