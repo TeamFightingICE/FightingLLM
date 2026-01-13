@@ -20,4 +20,4 @@ Note: Please choose the appropriate cuda version for your system
 python run_llm_vs_mcts.py --llm_model local:path_to_local_model
 ```
 
-### Finetune (TBA)
+### Finetune: Please check [this file](finetune/finetuning.py)
