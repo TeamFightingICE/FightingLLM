@@ -14,7 +14,7 @@ from pyftg.models.frame_data import FrameData
 from pyftg.models.key import Key
 from pyftg.models.round_result import RoundResult
 
-from prompt import CustomPromptGenerator
+from .prompt import CustomPromptGenerator
 from llm import LLamaLLM
 from loguru import logger
 

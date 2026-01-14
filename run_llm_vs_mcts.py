@@ -5,7 +5,7 @@ import sys
 import asyncio
 import typer
 from typing_extensions import Annotated, Optional
-from agent import LLMAgent
+from ai.agent import LLMAgent
 from model_manager import model_manager  # 导入全局模型管理器
 from dotenv import load_dotenv
 from loguru import logger
