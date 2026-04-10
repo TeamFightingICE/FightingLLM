@@ -15,7 +15,7 @@
 Note: Please choose the appropriate cuda version for your system
 ### How to run
 1. Download the finetuned model from this [link](https://huggingface.co/anonymous2120/llm-fighting-rushdown) for rushdown fighting style and this [link](https://huggingface.co/anonymous2120/llm-fighting-zoning) for zoning fighting style, both of them can be downloaded via huggingface-cli.
-2. Start DareFightingICE
+2. Start DareFightingICE, **please note that the --pyftg-mode flag is in use.**
 3. Change the prompt defined in [prompt.py](ai/prompt.py) file in line number 90.
 4. Run the script 
 ```ssh 
